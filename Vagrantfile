@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "chef/ubuntu-14.04"
+  config.vm.box = "bento/ubuntu-14.04"
 
   # Provision from file
   # Explicitly set not to run the script as superuser. The specific instructions
@@ -54,8 +54,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "ubuntu-14.04-dpdk"
       # Assign 2 GB of memory
       vb.memory = 2048
-      # Assign 2 cores
-      vb.cpus = 2
+      # Assign 4 cores
+      vb.cpus = 4
 
       # Configure VirtualBox to enable passthrough of SSE 4.1 and SSE 4.2
       # instructions, according to this:
