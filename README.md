@@ -3,13 +3,10 @@ This project contains scripts and configuration files to create a Ubuntu 14.04 v
 
 ## Setup
 To set up a Vagrant virtual machine, first make sure that you have [Vagrant](http://www.vagrantup.com) installed and configured (this code has been tested with version 1.6.3).
-Then, make sure that you have the `chef/ubuntu-14.04` box installed. You can check it by typing:
 
-    $ vagrant box list
+On an Ubuntu host, you can get vagrant using:
 
-If you do not see it in the list, then install it with:
-
-    $ vagrant box add chef/ubuntu-14.04
+    $ sudo apt-get install vagrant
 
 At this stage, you are ready to set up the virtual machine with Intel DPDK.
 Open a shell, move to the directory where this README file is located and type:
@@ -18,7 +15,11 @@ Open a shell, move to the directory where this README file is located and type:
 
 This will create a Vagrant VM according to the configuration contained in `Vagrantfile` and then it will provision it by running the `provision.sh` script.
 
-You can then SSH to the newly created machine by executing:
+Provisioning is only automatically run at the very first boot (when the machine gets created). In order to properly configure the NICs for DPDK, this provision step should be done on every subsequent `up`, in which you need to explicitly provision:
+
+    $ vagrant up --provision
+
+Once the machine is running, you can then SSH to it by executing:
 
     $ vagrant ssh
 
@@ -26,7 +27,7 @@ The virtual machine can then be suspended with:
 
     $ vagrant suspend
 
-shut down with:
+or shut down with:
 
     $ vagrant halt
 
