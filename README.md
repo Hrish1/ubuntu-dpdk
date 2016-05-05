@@ -37,6 +37,15 @@ or destroyed with:
 
 Further information about the specific steps executed during this process can be found in the comments of the `provision.sh` and `Vagrantfile` files.
 
+More information about the various sample applications can be found here: <http://dpdk.org/doc/guides/sample_app_ug/index.html>.
+
+# Known Issues
+
+I have not yet been able to get any examples running except for the hello world example. In trying some of the examples, if they fail they may not properly release the pages that they were allocated. You can force them to release by unmounting them and remounting them:
+
+    $ sudo umount /mnt/huge
+    $ sudo mount -t hugetlbfs nodev /mnt/huge
+
 # Requirements
  * Vagrant 1.6.3+
  * VirtualBox 3.8+
