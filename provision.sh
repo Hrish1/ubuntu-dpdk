@@ -18,7 +18,7 @@ sudo mount -t hugetlbfs nodev ${HUGEPAGE_MOUNT}
 
 # Install dependencies
 sudo apt-get update
-sudo apt-get -y -q install git clang doxygen hugepages build-essential linux-headers-`uname -r`
+sudo apt-get -y -q install git clang doxygen hugepages build-essential linux-headers-`uname -r` libpcap-dev vim
  
 # Get code from Git repo
 git clone http://dpdk.org/git/dpdk
