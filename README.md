@@ -69,7 +69,7 @@ with (remove `MBUF_`):
 
 Once it compiles, then do a setup step:
 
-    $ sudo ./setup.sh
+    $ sudo -E ./setup.sh
 
 I again encountered a problem here. You need to make sure the `Pktgen.lua` file is in the same directory as the `pktgen` executable, which is kind of buried in `app/app/x86_64-native-linuxapp-gcc`. So still within the `pktgen-dpdk` directory:
 
@@ -81,6 +81,18 @@ To run, use the following command (you might be able to get others to do work de
     $ sudo ./pktgen -c 0x3 -n 2 -- -P -m "1.0"
 
 This command runs pktgen with lcores 0 and 1. "1:0" specifies that lcore1 will handle the traffic on port 0. lcore 0 is automatically assigned to the pktgen program. When you run it, some text will flash by showing the setup, and then only the packet generation numbers will be displayed. However, if you scroll up, you can verify the setup and should see "Display processing on lcore 0" means that lcore 0 will handle processing the pktgen program itself, and "RX/TX processing lcore  1 rxcnt 1 txcnt 1 port/qid, 0/0" means that lcore 1 is handling rx/tx traffic on port 0.
+
+You can start packets flowing on port 0 using:
+
+    Pktgen> start 0
+
+And stop them:
+
+    Pktgen> stop 0
+
+And quit:
+
+    Pktgen> quit
 
 ## Known Issues
 
