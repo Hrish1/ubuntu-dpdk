@@ -41,6 +41,24 @@ Further information about the specific steps executed during this process can be
 
 More information about the various sample applications can be found here: <http://dpdk.org/doc/guides/sample_app_ug/index.html>.
 
+## Running l3fwd sample application
+
+After you have provisioned the VM, SSH into it:
+
+    $ vagrant ssh
+
+Then change directory to the `l3fwd` application and build it:
+
+    $ cd dpdk/examples/l3fwd
+    $ make
+    $ cd build
+
+You can then run the l3fwd application on one port with the following command:
+
+    $ sudo ./l3fwd -c 0x1 -n 2 --socket-mem 256 -- -p 0x1 -P --config="(0,0,0)" --parse-ptype
+
+I haven't yet figured out how to send packets through this application or view some effects/output.
+
 ## Running pktgen
 
 `pktgen` is a tool used to generate traffic on devices for DPDK applications. It's important to get it running so that we can quickly and easily test the DPDK code we write. More information is available here: <http://pktgen.readthedocs.io/en/latest/getting_started.html>.
@@ -78,7 +96,7 @@ I again encountered a problem here. You need to make sure the `Pktgen.lua` file 
 
 To run, use the following command (you might be able to get others to do work depending on your configuration. More information about the command-line paramters here: <http://pktgen.readthedocs.io/en/latest/usage_pktgen.html>).
 
-    $ sudo ./pktgen -c 0x3 -n 2 -- -P -m "1.0"
+    $ sudo ./pktgen -c 0x3 -n 2 --socket-mem 256 -- -P -m "1.0"
 
 This command runs pktgen with lcores 0 and 1. "1:0" specifies that lcore1 will handle the traffic on port 0. lcore 0 is automatically assigned to the pktgen program. When you run it, some text will flash by showing the setup, and then only the packet generation numbers will be displayed. However, if you scroll up, you can verify the setup and should see "Display processing on lcore 0" means that lcore 0 will handle processing the pktgen program itself, and "RX/TX processing lcore  1 rxcnt 1 txcnt 1 port/qid, 0/0" means that lcore 1 is handling rx/tx traffic on port 0.
 
