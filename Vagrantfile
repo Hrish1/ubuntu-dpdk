@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Provision from file
   # Explicitly set not to run the script as superuser. The specific instructions
   # that need to be run as sudo in the script are prepended with sudo 
-  config.vm.provision :shell, privileged: false, :path => "provision.sh", run: "always"
+  config.vm.provision :shell, privileged: false, :path => "provision.sh"
   
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
