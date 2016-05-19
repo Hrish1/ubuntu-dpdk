@@ -41,7 +41,7 @@ Further information about the specific steps executed during this process can be
 
 More information about the various sample applications can be found here: <http://dpdk.org/doc/guides/sample_app_ug/index.html>.
 
-# Running pktgen
+## Running pktgen
 
 `pktgen` is a tool used to generate traffic on devices for DPDK applications. It's important to get it running so that we can quickly and easily test the DPDK code we write. More information is available here: <http://pktgen.readthedocs.io/en/latest/getting_started.html>.
 
@@ -82,7 +82,7 @@ To run, use the following command (you might be able to get others to do work de
 
 This command runs pktgen with lcores 0 and 1. "1:0" specifies that lcore1 will handle the traffic on port 0. lcore 0 is automatically assigned to the pktgen program. When you run it, some text will flash by showing the setup, and then only the packet generation numbers will be displayed. However, if you scroll up, you can verify the setup and should see "Display processing on lcore 0" means that lcore 0 will handle processing the pktgen program itself, and "RX/TX processing lcore  1 rxcnt 1 txcnt 1 port/qid, 0/0" means that lcore 1 is handling rx/tx traffic on port 0.
 
-# Known Issues
+## Known Issues
 
 In trying some of the examples, if they fail they may not properly release the pages that they were allocated. You can check how many hugepages you've allocated and how many are free by executing this command:
 
@@ -101,9 +101,9 @@ To free all of the pages, you can force them to release by unmounting them and r
     $ sudo umount /mnt/huge
     $ sudo mount -t hugetlbfs nodev /mnt/huge
 
-# Requirements
+## Requirements
  * Vagrant 1.6.3+
  * VirtualBox 3.8+
 
-# License
+## License
 This project is released under the terms of [BSD License](http://en.wikipedia.org/wiki/BSD_licenses).
