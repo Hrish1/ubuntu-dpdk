@@ -41,6 +41,47 @@ Further information about the specific steps executed during this process can be
 
 More information about the various sample applications can be found here: <http://dpdk.org/doc/guides/sample_app_ug/index.html>.
 
+# Running pktgen
+
+`pktgen` is a tool used to generate traffic on devices for DPDK applications. It's important to get it running so that we can quickly and easily test the DPDK code we write. More information is available here: <http://pktgen.readthedocs.io/en/latest/getting_started.html>.
+
+It is a separate repository from the DPDK code. Theoretically, the setup steps for it could be put in the `provision.sh` file, but we need to fix a bug and move a file to get it to work, which is easier to do manually.
+
+So after you have provisioned the VM, SSH into it:
+
+    $ vagrant ssh
+
+Then acquire the `pktgen-dpdk` repository and compile it:
+
+    $ git clone http://dpdk.org/git/apps/pktgen-dpdk
+    $ cd pktgen-dpdk
+    $ make
+
+At this step, I needed to change one file because `pktgen-dpdk` is not up-to-date with `dpdk`:
+
+In `app/pktgen-pcap.c`, on line 268 replace:
+
+    RTE_MBUF_ASSERT(mp->elt_size >= sizeof(struct rte_mbuf));
+
+with (remove `MBUF_`):
+
+    RTE_ASSERT(mp->elt_size >= sizeof(struct rte_mbuf));
+
+Once it compiles, then do a setup step:
+
+    $ sudo ./setup.sh
+
+I again encountered a problem here. You need to make sure the `Pktgen.lua` file is in the same directory as the `pktgen` executable, which is kind of buried in `app/app/x86_64-native-linuxapp-gcc`. So still within the `pktgen-dpdk` directory:
+
+    $ cp Pktgen.lua app/app/x86_64-native-linuxapp-gcc/
+    $ cd app/app/x86_64-native-linuxapp-gcc/
+
+To run, use the following command (you might be able to get others to do work depending on your configuration. More information about the command-line paramters here: <http://pktgen.readthedocs.io/en/latest/usage_pktgen.html>).
+
+    $ sudo ./pktgen -c 0x3 -n 2 -- -P -m "1.0"
+
+This command runs pktgen with lcores 0 and 1. "1:0" specifies that lcore1 will handle the traffic on port 0. lcore 0 is automatically assigned to the pktgen program. When you run it, some text will flash by showing the setup, and then only the packet generation numbers will be displayed. However, if you scroll up, you can verify the setup and should see "Display processing on lcore 0" means that lcore 0 will handle processing the pktgen program itself, and "RX/TX processing lcore  1 rxcnt 1 txcnt 1 port/qid, 0/0" means that lcore 1 is handling rx/tx traffic on port 0.
+
 # Known Issues
 
 In trying some of the examples, if they fail they may not properly release the pages that they were allocated. You can check how many hugepages you've allocated and how many are free by executing this command:
