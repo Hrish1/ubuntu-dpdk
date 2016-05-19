@@ -19,6 +19,8 @@ Provisioning is only automatically run at the very first boot (when the machine 
 
     $ vagrant up --provision
 
+This step will try to completely provision the machine and build DPDK fresh each time, which is not optimal. I soon hope to change this so that the only items that are executed when provisioning after the first  `up`, which is setting up the hugepages and configuring the NIC.
+
 Once the machine is running, you can then SSH to it by executing:
 
     $ vagrant ssh
@@ -41,7 +43,19 @@ More information about the various sample applications can be found here: <http:
 
 # Known Issues
 
-I have not yet been able to get any examples running except for the hello world example. In trying some of the examples, if they fail they may not properly release the pages that they were allocated. You can force them to release by unmounting them and remounting them:
+In trying some of the examples, if they fail they may not properly release the pages that they were allocated. You can check how many hugepages you've allocated and how many are free by executing this command:
+
+    $ grep -i huge /proc/meminfo
+    AnonHugePages:         0 kB
+    HugePages_Total:     912
+    HugePages_Free:      912
+    HugePages_Rsvd:        0
+    HugePages_Surp:        0
+    Hugepagesize:       2048 kB
+
+Note that the provision.sh script tries to allocate 1024 of these 2048 kB hugepages, but if there's not enough space then fewer may be allocated, as in the case above.
+
+To free all of the pages, you can force them to release by unmounting them and remounting them:
 
     $ sudo umount /mnt/huge
     $ sudo mount -t hugetlbfs nodev /mnt/huge
