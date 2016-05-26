@@ -66,7 +66,23 @@ You can then run the `l3fwd` application on one port with the following command:
 
     $ sudo ./l3fwd -c 0x1 -n 2 --socket-mem 256 -- -p 0x1 -P --config="(0,0,0)" --parse-ptype
 
-### Print
+### print
+
+After you have provisioned the VM, SSH into it:
+
+    $ vagrant ssh
+
+Then change directory to the `print` application and build it:
+
+    $ cd dpdk/examples/print
+    $ make
+    $ cd build
+
+You can then run the `print` application with the following command, which (if using the default settings of this repository) prints out any packets received on DPDK ports 0 and 1:
+
+    $ sudo ./print
+
+When packets are generated and sent to either of these ports, they are printed to the console.
 
 ## Generating Packets
 
