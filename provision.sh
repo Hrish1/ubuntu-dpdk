@@ -18,7 +18,7 @@ sudo mount -t hugetlbfs nodev ${HUGEPAGE_MOUNT}
 
 # Install dependencies
 sudo apt-get update
-sudo apt-get -y -q install git clang doxygen hugepages build-essential linux-headers-`uname -r` libpcap-dev vim
+sudo apt-get -y -q install git clang doxygen hugepages build-essential linux-headers-`uname -r` libpcap-dev vim tshark
  
 # Get code from Git repo
 git clone http://dpdk.org/git/dpdk
@@ -33,8 +33,6 @@ export RTE_SDK=`pwd`
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 
 # Build code
-# I am building from the dev branch (plus POPCNT patch) because the latest stable release
-# at the time of writing this script (1.7.0) has a bug preventing DPDK compilation on Ubuntu 14.04
 make config T=${RTE_TARGET}
 make
 
@@ -48,13 +46,12 @@ sudo depmod -a
 echo "uio" | sudo tee -a /etc/modules
 echo "igb_uio" | sudo tee -a /etc/modules
  
-
- 
-# Bind secondary network adapter
-# I need to set a second adapter in Vagrantfile
+# Bind secondary network adapters.
 # Note: NIC setup does not persist across reboots
 sudo ifconfig eth1 down
+sudo ifconfig eth2 down
 sudo ${RTE_SDK}/tools/dpdk_nic_bind.py --bind=igb_uio eth1
+sudo ${RTE_SDK}/tools/dpdk_nic_bind.py --bind=igb_uio eth2
 
 # Add env variables setting to .profile file so that they are set at each login
 echo "export RTE_SDK=${RTE_SDK}" >> ${HOME}/.profile
@@ -62,5 +59,3 @@ echo "export RTE_TARGET=${RTE_TARGET}" >> ${HOME}/.profile
 
 # We need to do this to make the examples compile, not sure why.
 ln -s ${RTE_SDK}/build ${RTE_SDK}/${RTE_TARGET}
-
-
