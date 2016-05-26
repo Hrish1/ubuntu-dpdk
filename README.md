@@ -8,8 +8,13 @@ On an Ubuntu host, you can get vagrant using:
 
     $ sudo apt-get install vagrant
 
-At this stage, you are ready to set up the virtual machine with Intel DPDK.
+Before adding the virtual machine, you need to setup networking on the host. We will create three separate host-only network adapters to interface with three interfaces in the VM: one that acts as a kernel-bound interface for debugging and two that act as DPDK-bound interfaces. These are in addition to the public network interface for the VM that uses NAT, which is always added by default.
+
 Open a shell, move to the directory where this README file is located and type:
+
+    $ ./setup_network.sh
+
+At this stage, you are ready to set up the virtual machine with Intel DPDK.
 
     $ vagrant up
 
