@@ -72,9 +72,9 @@ You can then run the `l3fwd` application on one port with the following command:
 
 To generate packets to reach the above sample applications, I have used the following options.
 
-### Ostintato
+### Ostinato
 
-Ostintato is a packet crafter, network traffic generator and analyzer. Its website describes it as "Wireshark in Reverse." More information is available here: <http://ostinato.org/>.
+Ostinato is a packet crafter, network traffic generator and analyzer. Its website describes it as "Wireshark in Reverse." More information is available here: <http://ostinato.org/>.
 
 Ostinato is useful for creating arbitrary unit tests to send to the Gatekeeper VM to test DPDK code and hardware offloading features. You can choose from a fairly standard set of L2 - L5 headers, choose how many packets to send, choose the sending rate, etc. You can also easily send these packets to one or more interfaces, making it very simple to send packets to a specific VM port, say one running DPDK.
 
