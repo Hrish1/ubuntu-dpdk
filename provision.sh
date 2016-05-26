@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # This script downloads, installs and configure the Intel DPDK framework
-# on a clean Ubuntu 14.04 installation running in a virtual machine.
+# on a clean Ubuntu 12.04 installation running in a virtual machine.
 # 
 # This script has been created based on the following scripts:
 #  * https://gist.github.com/ConradIrwin/9077440

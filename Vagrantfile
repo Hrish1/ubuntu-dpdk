@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "bento/ubuntu-14.04"
+  config.vm.box = "bento/ubuntu-12.04"
 
   # Provision from file
   # Explicitly set not to run the script as superuser. The specific instructions
@@ -53,7 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   config.vm.provider "virtualbox" do |vb|
       # Set easy to VM name
-      vb.name = "ubuntu-14.04-dpdk"
+      vb.name = "ubuntu-12.04-dpdk"
       # Assign 2 GB of memory
       vb.memory = 2048
       # Assign 4 cores
