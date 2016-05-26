@@ -46,7 +46,11 @@ Further information about the specific steps executed during this process can be
 
 More information about the various sample applications can be found here: <http://dpdk.org/doc/guides/sample_app_ug/index.html>.
 
-## Running l3fwd sample application
+## DPDK Applications
+
+Below are two examples of DPDK applications, for the sake of documenting how to compile and run them. The print application is also useful to ensure that you've set up the generation and receipt of packets through DPDK.
+
+### l3fwd
 
 After you have provisioned the VM, SSH into it:
 
@@ -58,13 +62,33 @@ Then change directory to the `l3fwd` application and build it:
     $ make
     $ cd build
 
-You can then run the l3fwd application on one port with the following command:
+You can then run the `l3fwd` application on one port with the following command:
 
     $ sudo ./l3fwd -c 0x1 -n 2 --socket-mem 256 -- -p 0x1 -P --config="(0,0,0)" --parse-ptype
 
-I haven't yet figured out how to send packets through this application or view some effects/output.
+### Print
 
-## Running pktgen
+## Generating Packets
+
+To generate packets to reach the above sample applications, I have used the following options.
+
+### Ostintato
+
+Ostintato is a packet crafter, network traffic generator and analyzer. Its website describes it as "Wireshark in Reverse." More information is available here: <http://ostinato.org/>.
+
+Ostinato is useful for creating arbitrary unit tests to send to the Gatekeeper VM to test DPDK code and hardware offloading features. You can choose from a fairly standard set of L2 - L5 headers, choose how many packets to send, choose the sending rate, etc. You can also easily send these packets to one or more interfaces, making it very simple to send packets to a specific VM port, say one running DPDK.
+
+To obtain Ostinato:
+
+    $ sudo apt-get install obstinato
+
+After starting Obstinato, you can generate packets from following the Quickstart guide available on their wiki: <https://github.com/pstavirs/ostinato/wiki/UserGuide#quickstart>. Note that in order to generate packets on interfaces like `vboxnet0` that we use on DPDK VMs, those interfaces must be activated by starting VMs that connect to them.
+
+### Packet Socket
+
+You can also use packet sockets to send packets directly to an interface, which if connected to a VM, will deliver the packets to the appropriate VM ports.
+
+### pktgen
 
 `pktgen` is a tool used to generate traffic on devices for DPDK applications. It's important to get it running so that we can quickly and easily test the DPDK code we write. More information is available here: <http://pktgen.readthedocs.io/en/latest/getting_started.html>.
 
@@ -116,6 +140,8 @@ And stop them:
 And quit:
 
     Pktgen> quit
+
+I have not yet exactly figured out how to deliver the generated packets from this application to other, DPDK-bound ports.
 
 ## Known Issues
 
