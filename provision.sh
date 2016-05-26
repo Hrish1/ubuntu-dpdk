@@ -27,6 +27,8 @@ git clone https://github.com/cjdoucette/dpdk
 
 # Move to the DPDK dir
 cd dpdk
+# For 12.04, checkout the precise version.
+git checkout precise
 
 # Path to the build dir
 export RTE_SDK=`pwd`
