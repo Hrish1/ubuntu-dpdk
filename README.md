@@ -179,8 +179,8 @@ To free all of the pages, you can force them to release by unmounting them and r
     $ sudo mount -t hugetlbfs nodev /mnt/huge
 
 ## Requirements
- * Vagrant 1.6.3+
- * VirtualBox 3.8+
+ * Vagrant 1.8.1+
+ * VirtualBox 5.0+, but also possibly works with older versions.
 
 ## License
 This project is released under the terms of [BSD License](http://en.wikipedia.org/wiki/BSD_licenses).
