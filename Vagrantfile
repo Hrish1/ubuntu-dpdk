@@ -30,10 +30,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # This option is needed otherwise the Intel DPDK takes over the entire adapter 
-  config.vm.network "private_network", ip: "10.0.10.2", name: "vboxnet0", nic_type: "virtio"
-  config.vm.network "private_network", ip: "10.0.11.2", name: "vboxnet1", nic_type: "virtio"
-  config.vm.network "private_network", ip: "10.0.12.2", name: "vboxnet2", nic_type: "virtio"
-  config.vm.network "private_network", ip: "10.0.13.2", name: "vboxnet3", nic_type: "virtio"
+  config.vm.network "private_network", ip: "10.0.10.2", name: "vboxnet0"
+  config.vm.network "private_network", ip: "10.0.11.2", name: "vboxnet1"
+  config.vm.network "private_network", ip: "10.0.12.2", name: "vboxnet2"
+  config.vm.network "private_network", ip: "10.0.13.2", name: "vboxnet3"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
