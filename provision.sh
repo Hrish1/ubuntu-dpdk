@@ -35,11 +35,5 @@ echo "export RTE_SDK=${RTE_SDK}" >> ${HOME}/.profile
 # Target of build process.
 echo "export RTE_TARGET=${RTE_TARGET}" >> ${HOME}/.profile
 
-# Bind secondary network adapters.
-sudo dependencies/dpdk/tools/dpdk-devbind.py --bind=uio_pci_generic enp0s8
-sudo dependencies/dpdk/tools/dpdk-devbind.py --bind=uio_pci_generic enp0s9
-sudo dependencies/dpdk/tools/dpdk-devbind.py --bind=uio_pci_generic enp0s10
-sudo dependencies/dpdk/tools/dpdk-devbind.py --bind=uio_pci_generic enp0s16
-
 # Compile Gatekeeper.
 make
