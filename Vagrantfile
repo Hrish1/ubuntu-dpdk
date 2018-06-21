@@ -57,8 +57,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.name = "gatekeeper"
       # Assign 2 GB of memory
       vb.memory = 2048
-      # Assign 4 cores
-      vb.cpus = 4
+      # Assign 5 cores
+      vb.cpus = 5
 
       # Configure VirtualBox to enable passthrough of SSE 4.1 and SSE 4.2
       # instructions, according to this:
